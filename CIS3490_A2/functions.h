@@ -1,0 +1,1 @@
+int BruteForceInversion (int a[]);
