@@ -1,29 +1,54 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <sys/types.h>
 #include <sys/timeb.h>
-#include <math.h>
 #include "functions.h"
 
 int main () {
 
-	int distinctNumbers[50000];
-	int P1Counter = 0;
+	// int distinctNumbers[50000];
+	int x[30000];
+	int y[30000];
+	// int P1Counter = 0;
+	int P2counter = 0;
+	char numberStore[26];
+	// struct timeb start, end;
+	// double timeTaken;
 
 	FILE* inFile = fopen("data_1.txt", "r");
 
-	char numberStore[26];
+	// while(fscanf(inFile,"%s", numberStore)>0) {
+	//     distinctNumbers[P1Counter] = atoi(numberStore);
+	//     P1Counter++;
+	// }
+
+	// ftime(&start);
+	// int inversionsBrute = BruteForceInversion(distinctNumbers);
+	// ftime(&end);
+	// printf("Number of inversions brute force: %d\n", inversionsBrute);
+	// timeTaken = end.time-start.time + (end.millitm-start.millitm) * 0.001;
+	// printf("Time taken: %f\n", timeTaken);
+
+	// int inversionsDivideConquer = 0;
+	// ftime(&start);
+	// DivideConquerInversion(distinctNumbers, 50000, &inversionsDivideConquer);
+	// ftime(&end);
+	// printf("Number of inversions divide and conquer: %d\n", inversionsDivideConquer);
+	// timeTaken = end.time-start.time + (end.millitm-start.millitm) * 0.001;
+	// printf("Time taken: %f\n", timeTaken);
+
+	inFile = fopen("data_2.txt", "r");
+
 	while(fscanf(inFile,"%s", numberStore)>0) {
-	    distinctNumbers[P1Counter] = atoi(numberStore);
-	    P1Counter++;
+	    x[P2counter] = atoi(numberStore);
+	    fscanf(inFile,"%s", numberStore);
+	    y[P2counter] = atoi(numberStore);
+	    P2counter++;
+	    if  (P2counter == 5000) {
+	    	break;
+	    }
 	}
 
-	int inversionsBrute = BruteForceInversion(distinctNumbers);
-	printf("%d\n", inversionsBrute);
-
-	// int inversionsDivideConquer = DivideConquer(distinctNumbers);
-
+	BruteForceConvexHull(x, y);
 
 	return 0;
 }
