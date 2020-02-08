@@ -13,7 +13,7 @@ void CountInversionsMerge(int b[], int c[], int a[], int p, int q, int *invCount
 			a[k] = b[i];
 			i++;
 		} else {
-			// every remaining item in array must be inversion with c[j], add number of items left to compare to inversion count
+			// every remaining item in b array must be inversion with c[j], add number of items left to compare to inversion count
 			*invCount += p-i;
 			a[k] = c[j];
 			j++;
@@ -38,6 +38,7 @@ void CountInversionsMerge(int b[], int c[], int a[], int p, int q, int *invCount
 }
 
 void DivideConquerInversion (int a[], int size, int *invCount) {
+	//mergesort algorithem
 	if (size > 1) {
 
 		int half1 = size / 2;

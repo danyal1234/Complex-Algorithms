@@ -1,5 +1,7 @@
 #include <stdio.h>
 
-int BruteForceInversion (int a[]);
+void BruteForceInversion (int a[]);
 void DivideConquerInversion (int a[], int size, int *invCount);
-int BruteForceConvexHull (int x[], int y[]);
+void BruteForceConvexHull (double x[], double y[]);
+void QuickSortConvexHull (double x[], double y[]);
+void insertionSort(double* x, double* y, int length);

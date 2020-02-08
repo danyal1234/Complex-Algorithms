@@ -2,17 +2,37 @@
 #include <stdbool.h>
 #include "functions.h"
 
-int BruteForceConvexHull (int x[], int y[]) {
-	int count = 5000;
+void insertionSort(double* x, double* y, int length) {
+	double swap;
+
+	for (int i = 1 ; i < length; i++) {
+	 	int diff = x[i-1] - x[i];
+		while ( i > 0 && diff > 0) {
+	    	swap = x[i];
+	    	x[i] = x[i-1];
+	    	x[i-1] = swap;
+
+	    	swap = y[i];
+	    	y[i] = y[i-1];
+	    	y[i-1] = swap;
+    		i--;
+	    }
+  	}
+
+}
+
+void BruteForceConvexHull (double x[], double y[]) {
+	int count = 30000;
 	bool greater = false;
 	bool lessthen = false;
 	bool alreadycontainsi = false;
 	bool alreadycontainsj = false;
-	double slope = 0.0;
-	double yintercept = 0.0;
+	double a = 0.0;
+	double b = 0.0;
+	double c = 0.0;
 	int points = 0;
-	int resultsx[5000];
-	int resultsy[5000];
+	double resultsx[100];
+	double resultsy[100];
 
 	for (int i = 0; i < count; ++i)
 	{
@@ -20,19 +40,20 @@ int BruteForceConvexHull (int x[], int y[]) {
 		{
 			alreadycontainsi = false;
 			alreadycontainsj = false;
+			greater = false;
+			lessthen = false;
 			if (i != j) {
-				slope = (y[i]-y[j])*1.0/(x[i]-x[j]);
-				yintercept = y[i] - slope * x[i];
+				a = y[j] - y[i];
+				b = x[i] - x[j];
+				c = x[i]*y[j] - y[i]*x[j];
 			} else {
 				continue;
 			}
-			greater = false;
-			lessthen = false;
 			for (int k = 0; k < count; ++k)
 			{
 				if (k!=i && k!=j) {
-					int linepoint = slope * x[k] + yintercept;
-					if (linepoint > y[k]) {
+					int linepoint = a * x[k] + b * y[k];
+					if (linepoint > c) {
 						greater = true;
 					} else {
 						lessthen = true;
@@ -66,7 +87,12 @@ int BruteForceConvexHull (int x[], int y[]) {
 		}
 	}
 
-	printf("%d\n", points);
+	insertionSort(resultsx, resultsy, points);
 
-	return points;
+	printf("Convex hull points %d\n", points);
+	printf("Points: \n");
+	for (int i = 0; i < points; ++i)
+	{
+		printf("%0.1f %0.1f\n", resultsx[i], resultsy[i]);
+	}
 }

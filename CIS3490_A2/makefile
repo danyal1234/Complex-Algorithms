@@ -1,6 +1,6 @@
 CC = gcc
-CFLAGS = -Wall -std=c99 -pedantic
+CFLAGS = -Wall -std=c99 -pedantic -g
 
 all: main.c
-	$(CC) $(CFLAGS) p11.c p12.c p21.c main.c -o cis3490a2
+	$(CC) $(CFLAGS) p11.c p12.c p21.c p22.c main.c -o cis3490a2
 

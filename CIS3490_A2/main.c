@@ -6,13 +6,13 @@
 int main () {
 
 	// int distinctNumbers[50000];
-	int x[30000];
-	int y[30000];
+	double x[30000];
+	double y[30000];
 	// int P1Counter = 0;
 	int P2counter = 0;
 	char numberStore[26];
-	// struct timeb start, end;
-	// double timeTaken;
+	struct timeb start, end;
+	double timeTaken;
 
 	FILE* inFile = fopen("data_1.txt", "r");
 
@@ -24,7 +24,6 @@ int main () {
 	// ftime(&start);
 	// int inversionsBrute = BruteForceInversion(distinctNumbers);
 	// ftime(&end);
-	// printf("Number of inversions brute force: %d\n", inversionsBrute);
 	// timeTaken = end.time-start.time + (end.millitm-start.millitm) * 0.001;
 	// printf("Time taken: %f\n", timeTaken);
 
@@ -32,23 +31,33 @@ int main () {
 	// ftime(&start);
 	// DivideConquerInversion(distinctNumbers, 50000, &inversionsDivideConquer);
 	// ftime(&end);
-	// printf("Number of inversions divide and conquer: %d\n", inversionsDivideConquer);
 	// timeTaken = end.time-start.time + (end.millitm-start.millitm) * 0.001;
 	// printf("Time taken: %f\n", timeTaken);
 
 	inFile = fopen("data_2.txt", "r");
 
+
 	while(fscanf(inFile,"%s", numberStore)>0) {
-	    x[P2counter] = atoi(numberStore);
+	    x[P2counter] = atof(numberStore);
 	    fscanf(inFile,"%s", numberStore);
-	    y[P2counter] = atoi(numberStore);
+	    y[P2counter] = atof(numberStore);
 	    P2counter++;
-	    if  (P2counter == 5000) {
+	    if (P2counter == 10) {
 	    	break;
 	    }
 	}
 
-	BruteForceConvexHull(x, y);
+	// ftime(&start);
+	// BruteForceConvexHull(x, y);
+	// ftime(&end);
+	// timeTaken = end.time-start.time + (end.millitm-start.millitm) * 0.001;
+	// printf("Time taken: %0.3f\n", timeTaken);
+
+	ftime(&start);
+	QuickSortConvexHull(x, y);
+	ftime(&end);
+	timeTaken = end.time-start.time + (end.millitm-start.millitm) * 0.001;
+	printf("Time taken: %0.3f\n", timeTaken);
 
 	return 0;
 }

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "functions.h"
 
-int BruteForceInversion (int a[]) {
+void BruteForceInversion (int a[]) {
 
 	int inversions = 0;
 	int count = 50000;
@@ -16,5 +16,5 @@ int BruteForceInversion (int a[]) {
 		}
 	}
 
-	return inversions;
+	printf("Number of inversions brute force: %d\n", inversions);
 }
