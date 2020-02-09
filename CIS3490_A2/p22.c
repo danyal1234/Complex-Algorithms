@@ -1,9 +1,15 @@
+// ****************************************************
+// Danyal Mahmood                          0956989
+// CIS 3490                                Assignment 2
+// dmahmood@uoguelph.ca                    Feb 10, 2020
+// ****************************************************
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <math.h>
 #include "functions.h"
 
-// Quicksort based solution as outlined in pg. 195 of textbook
+// Quicksort based solution quickhull as outlined by procedure in pg. 195 of textbook
 
 void findHalfHulls(int maxleft, int maxright, double x[], double y[], double resultsx[], double resultsy[], int* points, bool upper, int size) {
 	double a = 0.0;
@@ -16,9 +22,9 @@ void findHalfHulls(int maxleft, int maxright, double x[], double y[], double res
 	int index = 0;
 
 	// make end to end line segment
-	a = y[maxleft] - y[maxright];
-	b = x[maxright] - x[maxleft];
-	c = x[maxright]*y[maxleft] - y[maxright]*x[maxleft];
+	a = y[maxright] - y[maxleft];
+	b = x[maxleft] - x[maxright];
+	c = x[maxleft]*y[maxright] - y[maxleft]*x[maxright];
 
 	for (int i = 0; i < size; ++i)
 	{
@@ -34,21 +40,23 @@ void findHalfHulls(int maxleft, int maxright, double x[], double y[], double res
 		double distance = fabs(a*x[i] + b*y[i] + c)/sqrt(a*a + b*b);
 
 		if (distance >  maxdistance) {
+			maxdistance = distance;
+
 			// determine if point on side of desired upper/lower half
 			double linepoint = a * x[i] + b * y[i];
 			if (linepoint > c) {
 				greater = true;
-			} else {
+			} else if (linepoint < c) {
 				lessthen = true;
-			}
+			} else {
+				continue;
+			} 
 
 			// if furthest away from line on right upper/lower half make point of interest
 			if (greater && upper) {
-				maxdistance = distance;
 				index = i;
 				pointfound = true;
 			} else if (lessthen && !upper) {
-				maxdistance = distance;
 				index = i;
 				pointfound = true;		
 			}
@@ -58,6 +66,13 @@ void findHalfHulls(int maxleft, int maxright, double x[], double y[], double res
 
 	// append point if found
 	if (pointfound) {
+		for (int z = 0; z < *points; ++z)
+		{
+			// make sure not to add duplicate set of points
+			if (resultsx[z] == x[index] && y[index] == resultsy[z]) {
+				return;
+			}
+		}
 		resultsx[*points] = x[index];
 		resultsy[*points] = y[index];
 		*points = *points + 1;
@@ -67,8 +82,8 @@ void findHalfHulls(int maxleft, int maxright, double x[], double y[], double res
 	}
 
 	// use new points to create to new line segments with middle new point, continue process
-	findHalfHulls(maxleft, index, x, y, resultsx, resultsy, points, upper);
-	findHalfHulls(index, maxright, x, y, resultsx, resultsy, points, upper);
+	findHalfHulls(maxleft, index, x, y, resultsx, resultsy, points, upper, size);
+	findHalfHulls(index, maxright, x, y, resultsx, resultsy, points, upper, size);
 }
 
 

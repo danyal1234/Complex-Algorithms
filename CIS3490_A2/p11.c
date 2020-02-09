@@ -1,5 +1,13 @@
+// ****************************************************
+// Danyal Mahmood                          0956989
+// CIS 3490                                Assignment 2
+// dmahmood@uoguelph.ca                    Feb 10, 2020
+// ****************************************************
+
 #include <stdio.h>
 #include "functions.h"
+
+// Brute force code to count all inversions
 
 void BruteForceInversion (int a[], int count) {
 

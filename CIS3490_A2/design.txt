@@ -51,10 +51,92 @@ Algorithm CountInversions(B[0..p-1], C[0..q-1], A[0..p+q-1], k)
 	else
 		copy B[i..p-1] to A[k..p+q-1]
 
-# of baasic operations: 1/2(n)log2(n)
+# of baasic operations best case: 1/2(n)log2(n)
 Complexity: O(nlogn)
+Masters theorem: T(n) = aT()
+
+1.3 The divide and conquer algorithm using merge sort runs in a significant amount of faster time then the brute force algorithm. The divide and conquer algorithm takes 0.012 seconds to run and the brute force takes on average about 6 seconds. This makes sense since the complexity class of the divide conquer algorithm grows much slower thna the brute force. Both algorithms returned the same number of inversions.
 
 
 2.1 The algorithm was designed to use each and every point
 
+Algorithm BruteForceConvexHull(x[0..n-1], y[0..n-1], count)
+	// Finds the convex hull of a set of given points
+	// Input: Points x[0..n-1], y[0..n-1] and count of points
+	// Output: display points of convex hull
+	for i<-0 to n-1 do
+		for j<-0 to n-1 do
+			if i not j
+				// create line segment
+				a <- y2 - y1
+				b <- x1 - x2
+				c <- x1y2 - x2y1
+				for k<-0 to n-1 do
+					linepoint = a*x + y*b
+					if linepoint > c
+						greater <- true
+					else
+						lessthen <- true
+				if resultsx, resultsy does not contain x[j]
+					resultsx <- x[j]
+					resultsy <- y[j]
+				if resultsx, resultsy does not contain x[i]
+					resultsx <- x[i]
+					resultsy <- y[i]
+
+# of basic operations comparison = (n)(n)(n) times
+Complexity: O(n^3)
+
+
 2.2 The algorithm was designed to compare each and every point with one another and count the inversions
+
+Algorithm QuickSortConvexHull(x[0..n-1], y[0..n-1], count)
+	// Finds the convex hull of a set of given points using quicksort based algo
+	// Input: Points x[0..n-1], y[0..n-1] and count of points
+	// Output: display points of convex hull
+	for i<-0 to n-1 do
+		if x[i] > max
+			max = x[i]
+		if x[i] < min
+			min = x[i]
+
+	resultsx <- minx, maxy
+	resultsy <- miny, maxy
+	points <- 2
+
+	findHalfHulls(minx, maxy, x, y, resultsx, resultsy, points, upper, size)
+	findHalfHulls(minx, maxy, x, y, resultsx, resultsy, points, lower, size)
+
+Algorithm findHalfHulls(maxleft, maxright, x[0..n-1], y[0..n-1], points, upper, size)
+	// Uses subsegments to find next furthest points away from line segment
+	// Input: Points leftindex, rightindex, x[0..n-1], y[0..n-1], points, side and amount of points
+	// Output: recursivley find set of points of convex hull
+	for i<-0 to n-1 do
+		distance = |a*x + b*y + c| / sqrt(a^2 + b^2)
+		if (distance > max)
+			max <- distance
+			linepoint = a*x + y*b
+				if linepoint > c
+					greater <- true
+				else
+					lessthen <- true
+			if greatest and upper
+				index <- i
+				pointfound <- true
+			if lessthen and !upper
+				index <- i
+				pointfound <- true
+
+	if pointfound
+		resultsx = x[index]
+		resultsy = y[index]
+	else
+		return
+
+	findHalfHulls(maxleft, index, x[0..n-1], y[0..n-1], points, upper, size)
+	findHalfHulls(index, maxright, x[0..n-1], y[0..n-1], points, upper, size)	
+
+# of baasic operations best case: 1/2(n)log2(n)
+Complexity: O(nlogn)
+
+2.3 The brute force algorithm to find the convex hull takes a significant amount of time to determine the time, and the time grows very fast and exponentially when more points are added to the dataset. The brute algorithm is not able to determine the amount of points for 30k points in a reasonable amount of time. The convex hull is able to return the determine the time in nlogn time, and displays the points of the convex hull even given the large 30k data points. This is logical due to the fact that the divide and conquer method has a complexity that grows much slower than n^3.

@@ -1,10 +1,17 @@
+// ****************************************************
+// Danyal Mahmood                          0956989
+// CIS 3490                                Assignment 2
+// dmahmood@uoguelph.ca                    Feb 10, 2020
+// ****************************************************
+
 #include <stdio.h>
 #include <stdbool.h>
 #include "functions.h"
 
 
-// Quicksort based solution using planes as outlined in pg. 113 of textbook
+// Quicksort based solution using planes by making line segments as outlined in pg. 113 of textbook
 
+// insertion sort an array in increasing order
 void insertionSort(double* x, double* y, int length) {
 	double swap;
 

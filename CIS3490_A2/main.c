@@ -1,3 +1,9 @@
+// ****************************************************
+// Danyal Mahmood                          0956989
+// CIS 3490                                Assignment 2
+// dmahmood@uoguelph.ca                    Feb 10, 2020
+// ****************************************************
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/timeb.h>
@@ -15,11 +21,11 @@ int main () {
 	double timeTaken;
 	char userInput[5];
 
-	printf("1) Brute Force Inversion Problem\n
-		    2) Divide and Conquer Inversion Problem\n
-		    3) Brute Force Convex Hull Problem\n
-		    4) Divide and Conquer Convex Hull Problem\n
-		    Enter algorithm to run:");
+	printf("1) Brute Force Inversion Problem\n");
+    printf("2) Divide and Conquer Inversion Problem\n");
+    printf("3) Brute Force Convex Hull Problem\n");
+    printf("4) Divide and Conquer Convex Hull Problem\n");
+    printf("Enter algorithm to run:");
 
 	scanf("%s", userInput);
 	int menuChoice  = atoi(userInput);
@@ -35,7 +41,7 @@ int main () {
 		BruteForceInversion(distinctNumbers, P1Counter);
 		ftime(&end);
 		timeTaken = end.time-start.time + (end.millitm-start.millitm) * 0.001;
-		printf("Time taken: %0.3f\n", timeTaken);
+		printf("Time taken: %0.4f\n", timeTaken);
 	}
 
 	if (menuChoice == 2) {
@@ -45,7 +51,7 @@ int main () {
 		printf("Number of inversions divide and conquer force: %d\n", inversionsDivideConquer);
 		ftime(&end);
 		timeTaken = end.time-start.time + (end.millitm-start.millitm) * 0.001;
-		printf("Time taken: %0.3f\n", timeTaken);
+		printf("Time taken: %0.4f\n", timeTaken);
 	}
 
 	inFile = fopen("data_2.txt", "r");
@@ -56,6 +62,10 @@ int main () {
 	    fscanf(inFile,"%s", numberStore);
 	    y[P2counter] = atof(numberStore);
 	    P2counter++;
+	    if (P2counter == 2000)
+	    {
+	    	break;
+	    }
 	}
 
 	if (menuChoice == 3)
@@ -64,7 +74,7 @@ int main () {
 		BruteForceConvexHull(x, y, P2counter);
 		ftime(&end);
 		timeTaken = end.time-start.time + (end.millitm-start.millitm) * 0.001;
-		printf("Time taken: %0.3f\n", timeTaken);
+		printf("Time taken: %0.4f\n", timeTaken);
 	}
 
 	if (menuChoice == 4)
@@ -73,7 +83,7 @@ int main () {
 		QuickSortConvexHull(x, y, P2counter);
 		ftime(&end);
 		timeTaken = end.time-start.time + (end.millitm-start.millitm) * 0.001;
-		printf("Time taken: %0.3f\n", timeTaken);
+		printf("Time taken: %0.4f\n", timeTaken);
 	}
 
 	fclose(inFile);

@@ -1,7 +1,13 @@
+// ****************************************************
+// Danyal Mahmood                          0956989
+// CIS 3490                                Assignment 2
+// dmahmood@uoguelph.ca                    Feb 10, 2020
+// ****************************************************
+
 #include <stdio.h>
 #include "functions.h"
 
-// Built using mergesort pseudocode from lecture 5: divide and conquer
+// Built using mergesort pseudocode from Lecture 5: divide and conquer
 
 void CountInversionsMerge(int b[], int c[], int a[], int p, int q, int *invCount) {
 	// merge algorithm
@@ -18,7 +24,7 @@ void CountInversionsMerge(int b[], int c[], int a[], int p, int q, int *invCount
 		} else {
 			// every remaining item in b array must be inversion with c[j], add number of items left to compare to inversion count
 			*invCount += p-i;
-			// ass lement and increase later array index
+			// add lement and increase later array index
 			a[k] = c[j];
 			j++;
 		}
@@ -44,7 +50,7 @@ void CountInversionsMerge(int b[], int c[], int a[], int p, int q, int *invCount
 }
 
 void DivideConquerInversion (int a[], int size, int *invCount) {
-	//mergesort algorithem
+	//mergesort algorithe-m
 	if (size > 1) {
 
 		// determine half size of array
