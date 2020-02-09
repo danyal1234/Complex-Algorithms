@@ -2,6 +2,9 @@
 #include <stdbool.h>
 #include "functions.h"
 
+
+// Quicksort based solution using planes as outlined in pg. 113 of textbook
+
 void insertionSort(double* x, double* y, int length) {
 	double swap;
 
@@ -21,8 +24,7 @@ void insertionSort(double* x, double* y, int length) {
 
 }
 
-void BruteForceConvexHull (double x[], double y[]) {
-	int count = 30000;
+void BruteForceConvexHull (double x[], double y[], int count) {
 	bool greater = false;
 	bool lessthen = false;
 	bool alreadycontainsi = false;
@@ -42,6 +44,8 @@ void BruteForceConvexHull (double x[], double y[]) {
 			alreadycontainsj = false;
 			greater = false;
 			lessthen = false;
+
+			// create line segment
 			if (i != j) {
 				a = y[j] - y[i];
 				b = x[i] - x[j];
@@ -52,6 +56,7 @@ void BruteForceConvexHull (double x[], double y[]) {
 			for (int k = 0; k < count; ++k)
 			{
 				if (k!=i && k!=j) {
+					//determine if all points on one side of line
 					int linepoint = a * x[k] + b * y[k];
 					if (linepoint > c) {
 						greater = true;
@@ -65,6 +70,7 @@ void BruteForceConvexHull (double x[], double y[]) {
 			if (greater != lessthen) {
 				for (int z = 0; z < points; ++z)
 				{
+					// make sure not to add duplicate set of points
 					if (resultsx[z] == x[i] && y[i] == resultsy[z]) {
 						alreadycontainsi = true;
 					}
@@ -72,6 +78,8 @@ void BruteForceConvexHull (double x[], double y[]) {
 						alreadycontainsj = true;
 					}
 				}
+
+				// add new found points belonging to convex hull
 				if (!alreadycontainsi) {
 					resultsx[points] = x[i];
 					resultsy[points] = y[i];
@@ -87,9 +95,11 @@ void BruteForceConvexHull (double x[], double y[]) {
 		}
 	}
 
+	// sort points by x co-ordinates using insertion sort
 	insertionSort(resultsx, resultsy, points);
 
-	printf("Convex hull points %d\n", points);
+	// display convex hull
+	printf("Convex hull points: %d\n", points);
 	printf("Points: \n");
 	for (int i = 0; i < points; ++i)
 	{

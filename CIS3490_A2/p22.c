@@ -3,7 +3,9 @@
 #include <math.h>
 #include "functions.h"
 
-void findHalfHulls(int maxleft, int maxright, double x[], double y[], double resultsx[], double resultsy[], int* points, bool upper) {
+// Quicksort based solution as outlined in pg. 195 of textbook
+
+void findHalfHulls(int maxleft, int maxright, double x[], double y[], double resultsx[], double resultsy[], int* points, bool upper, int size) {
 	double a = 0.0;
 	double b = 0.0;
 	double c = 0.0;
@@ -13,65 +15,75 @@ void findHalfHulls(int maxleft, int maxright, double x[], double y[], double res
 	bool pointfound = false;
 	int index = 0;
 
+	// make end to end line segment
 	a = y[maxleft] - y[maxright];
 	b = x[maxright] - x[maxleft];
 	c = x[maxright]*y[maxleft] - y[maxright]*x[maxleft];
 
-	for (int i = 0; i < 10; ++i)
+	for (int i = 0; i < size; ++i)
 	{
+		// dont compare line endpoints to themselves
 		if (i==maxleft || i==maxright) {
 			continue;
 		}
+
 		greater = false;
 		lessthen = false;
-		int distance = fabs((a*x[i] + b*y[i] + c) / (sqrt(b*b + a*a)));
-		int linepoint = a * x[i] + b * y[i];
-		if (linepoint > c) {
-			greater = true;
-		} else {
-			lessthen = true;
-		}
-		if (greater && upper) {
-			if (distance >  maxdistance) {
+
+		//determine distance between points using dot product
+		double distance = fabs(a*x[i] + b*y[i] + c)/sqrt(a*a + b*b);
+
+		if (distance >  maxdistance) {
+			// determine if point on side of desired upper/lower half
+			double linepoint = a * x[i] + b * y[i];
+			if (linepoint > c) {
+				greater = true;
+			} else {
+				lessthen = true;
+			}
+
+			// if furthest away from line on right upper/lower half make point of interest
+			if (greater && upper) {
 				maxdistance = distance;
 				index = i;
 				pointfound = true;
-			}
-		} else if (lessthen && !upper) {
-			if (distance >  maxdistance) {
+			} else if (lessthen && !upper) {
 				maxdistance = distance;
 				index = i;
-				pointfound = true;
+				pointfound = true;		
 			}
 		}
+
 	}
 
+	// append point if found
 	if (pointfound) {
 		resultsx[*points] = x[index];
 		resultsy[*points] = y[index];
 		*points = *points + 1;
 	} else {
+		// no more points above line segment, kill recursion
 		return;
 	}
 
-
+	// use new points to create to new line segments with middle new point, continue process
 	findHalfHulls(maxleft, index, x, y, resultsx, resultsy, points, upper);
 	findHalfHulls(index, maxright, x, y, resultsx, resultsy, points, upper);
 }
 
 
 
-void QuickSortConvexHull (double x[], double y[]) {
+void QuickSortConvexHull (double x[], double y[], int size) {
 	double maxleft = x[0];
 	double maxright = x[0];
-	double resultsx[100];
-	double resultsy[100];
+	double resultsx[30];
+	double resultsy[30];
 	int leftindex = 0;
 	int rightindex = 0;
-
 	int points = 2;
 
-	for (int i = 1; i < 10; ++i)
+	//find max and min x value points and add to hull
+	for (int i = 1; i < size; ++i)
 	{
 		if (x[i] < maxleft) {
 			maxleft = x[i];
@@ -87,12 +99,15 @@ void QuickSortConvexHull (double x[], double y[]) {
 	resultsx[1] = x[rightindex];
 	resultsy[1] = y[rightindex];
 
-	findHalfHulls(leftindex, rightindex, x, y, resultsx, resultsy, &points, true);
-	findHalfHulls(leftindex, rightindex, x, y, resultsx, resultsy, &points, false);
+	//recursively divide and conquer upper and lower hulls
+	findHalfHulls(leftindex, rightindex, x, y, resultsx, resultsy, &points, true, size);
+	findHalfHulls(leftindex, rightindex, x, y, resultsx, resultsy, &points, false, size);
 
-	// insertionSort(resultsx, resultsy, points);
+	// sort points by x-coordinate
+	insertionSort(resultsx, resultsy, points);
 
-	printf("Convex hull points %d\n", points);
+	//display convex hull points
+	printf("Convex hull points: %d\n", points);
 	printf("Points: \n");
 	for (int i = 0; i < points; ++i)
 	{

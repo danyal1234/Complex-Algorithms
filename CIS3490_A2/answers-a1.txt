@@ -1,0 +1,57 @@
+****************************************************
+Danyal Mahmood                          0956989
+CIS 3490                                Assignment 2
+dmahmood@uoguelph.ca                    Feb 10, 2020
+****************************************************
+
+1.1 The algorithm was designed to compare each and every point with one another and count the inversions
+
+Algorithm BruteforceInversion(A[0..n-1])
+	//This algorithm determines number of inversions in an array
+	// Input: Array A[0..n-1] of distinct numbers
+	// Output: k inversions
+	for i<-0 to n-1 do
+		for j <- i+1 to n do
+			if A[i] > A[j]
+				k <- k + 1
+	print k
+
+# of operations of basic operation comparison = (n-1)(n)/2 times
+Complexity: O(n^2)
+
+1.2 The algorithm was designed to use the standard merge sort algorithm and integrate and inversion counter inside of it
+
+Algorithm DivideConquerInversion(A[0..n-1])
+	// Finds inversions using mergesort recursion
+	// Input: Array A[0..n-1] of distinct numbers
+	// Output: k inversions
+	k <- 0
+	if n>1
+		copy A[0..(n/2)-1] to B[0..(n/2)-1]
+		copy A[0..(n/2)-1] to C[n/2..(n-1]
+		DivideConquerInversion(B[0..(n/2)-1])
+		DivideConquerInversion(C[n/2..(n-1])
+		CountInversions(B, C, A, k)
+
+Algorithm CountInversions(B[0..p-1], C[0..q-1], A[0..p+q-1], k)
+	// Finds inversions using mergesort recursion
+	// Input: Subarrays B[0..p-1], C[0..q-1], array A[0..p+q-1] and counter k
+	// Output: k inversions and B and C sorted into A
+	i <- 0, j <- 0
+	while i<p and i<q do
+		if B[i] < C[i]
+			A[k] <- B[i]
+			i <- i + 1
+		else 
+			A[k] <- C[i]
+			j <- j + i
+			inv <- inv + p - q
+	if i=p
+		copy C[i..q-1] to A[k..p+q-1]
+	else
+		copy B[i..p-1] to A[k..p+q-1]
+
+
+2.1 The algorithm was designed to use each and every point
+
+2.2 The algorithm was designed to compare each and every point with one another and count the inversions
