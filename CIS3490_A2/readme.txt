@@ -18,5 +18,3 @@ The user can select which program to run based on the options menu
 Assumptions or Limitations
 ****************************************************
 Using brute force to solve the provided 30000 point file takes too long, an output is never reached but does ouput in a decent time with a smaller number of points
-
-The divide and conquer algorithm does not work as required for a large number of points such as 30000, sometimes gets stuck in an infinite loop or seg faults, behaviour is very random
