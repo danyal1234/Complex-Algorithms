@@ -9,7 +9,13 @@
 #include <sys/timeb.h>
 #include "functions.h"
 
-int main () {
+int main (int argc, char *argv[]) {
+
+	if (argc != 3)
+	{
+		printf("Two files not specified. Exiting..\n");
+		return -1;
+	}
 
 	int distinctNumbers[50000];
 	double x[30000];
@@ -30,7 +36,7 @@ int main () {
 	scanf("%s", userInput);
 	int menuChoice  = atoi(userInput);
 
-	FILE* inFile = fopen("data_1.txt", "r");
+	FILE* inFile = fopen(argv[1], "r");
 
 	while(fscanf(inFile,"%s", numberStore)>0) {
 	    distinctNumbers[P1Counter] = atoi(numberStore);
@@ -54,7 +60,7 @@ int main () {
 		printf("Time taken: %0.4f\n", timeTaken);
 	}
 
-	inFile = fopen("data_2.txt", "r");
+	inFile = fopen(argv[2], "r");
 
 
 	while(fscanf(inFile,"%s", numberStore)>0) {
@@ -62,10 +68,6 @@ int main () {
 	    fscanf(inFile,"%s", numberStore);
 	    y[P2counter] = atof(numberStore);
 	    P2counter++;
-	    if (P2counter == 2000)
-	    {
-	    	break;
-	    }
 	}
 
 	if (menuChoice == 3)

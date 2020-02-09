@@ -13,6 +13,8 @@ Additional Program  Details
 To compile simulation simply type "make all"
 Executable 'cis3490a2' will be created
 
+The user MUST specify two file names in the command line with the program, the first file runs with the inversions algorithm and the second file runs the convex hull algorithms
+
 The user can select which program to run based on the options menu
 
 Assumptions or Limitations
