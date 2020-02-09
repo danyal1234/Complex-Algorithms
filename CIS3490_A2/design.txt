@@ -136,7 +136,7 @@ Algorithm findHalfHulls(maxleft, maxright, x[0..n-1], y[0..n-1], points, upper, 
 	findHalfHulls(maxleft, index, x[0..n-1], y[0..n-1], points, upper, size)
 	findHalfHulls(index, maxright, x[0..n-1], y[0..n-1], points, upper, size)	
 
-# of baasic operations best case: 1/2(n)log2(n)
+# of basic operations best case: 1/2(n)log2(n)
 Complexity: O(nlogn)
 
 2.3 The brute force algorithm to find the convex hull takes a significant amount of time to determine the time, and the time grows very fast and exponentially when more points are added to the dataset. The brute algorithm is not able to determine the amount of points for 30k points in a reasonable amount of time. The convex hull is able to return the determine the time in nlogn time, and displays the points of the convex hull even given the large 30k data points. This is logical due to the fact that the divide and conquer method has a complexity that grows much slower than n^3.
