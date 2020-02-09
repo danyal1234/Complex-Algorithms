@@ -53,7 +53,6 @@ Algorithm CountInversions(B[0..p-1], C[0..q-1], A[0..p+q-1], k)
 
 # of baasic operations best case: 1/2(n)log2(n)
 Complexity: O(nlogn)
-Masters theorem: T(n) = aT()
 
 1.3 The divide and conquer algorithm using merge sort runs in a significant amount of faster time then the brute force algorithm. The divide and conquer algorithm takes 0.012 seconds to run and the brute force takes on average about 6 seconds. This makes sense since the complexity class of the divide conquer algorithm grows much slower thna the brute force. Both algorithms returned the same number of inversions.
 
