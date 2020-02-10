@@ -9,7 +9,7 @@
 #include "functions.h"
 
 
-// Quicksort based solution using planes by making line segments as outlined in pg. 113 of textbook
+// Brute force based solution using planes by making line segments as outlined in pg. 113 of textbook
 
 // insertion sort an array in increasing order
 void insertionSort(double* x, double* y, int length) {
