@@ -1,9 +1,9 @@
 #include <stdio.h>
 
 // solution for p.11
-void BruteForceAnagrams (int a[], int count);
+void BruteForceAnagrams (int a[], int count, int input);
 // solution for p.12
-void DivideConquerInversion (int a[], int size, int *invCount);
+void PreSortAnagrams (int a[], int count, int input);
 // solution for p.21
 void BruteForceConvexHull (double x[], double y[], int count);
 // solution for p.22

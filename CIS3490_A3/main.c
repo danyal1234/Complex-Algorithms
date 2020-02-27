@@ -24,13 +24,14 @@ int main (int argc, char *argv[]) {
 	struct timeb start, end;
 	double timeTaken;
 	char userInput[5];
+	char option1Input[52];
 
 	printf("1) Brute Force Anagram Detection\n");
     printf("2) Presort Anagram Detection\n");
     printf("3) Brute Force String Search\n");
     printf("4) Horspool's String Search\n");
     printf("5) Boyer-Moore String Search\n");
-    printf("Enter algorithm to run:");
+    printf("Enter algorithm to run: ");
 
 	scanf("%s", userInput);
 	int menuChoice  = atoi(userInput);
@@ -43,8 +44,22 @@ int main (int argc, char *argv[]) {
 	}
 
 	if (menuChoice == 1) {
+		printf("Enter anagram to look for: ");
+		scanf("%s", option1Input);
+		int p11choice = atoi(option1Input);
 		ftime(&start);
-		BruteForceAnagrams(anagramNumbers, P1Counter);
+		BruteForceAnagrams(anagramNumbers, P1Counter, p11choice);
+		ftime(&end);
+		timeTaken = end.time-start.time + (end.millitm-start.millitm) * 0.001;
+		printf("Time taken: %0.4f\n", timeTaken);
+	}
+
+	if (menuChoice == 2) {
+		printf("Enter anagram to look for: ");
+		scanf("%s", option1Input);
+		int p12choice = atoi(option1Input);
+		ftime(&start);
+		PreSortAnagrams(anagramNumbers, P1Counter, p12choice);
 		ftime(&end);
 		timeTaken = end.time-start.time + (end.millitm-start.millitm) * 0.001;
 		printf("Time taken: %0.4f\n", timeTaken);

@@ -10,7 +10,7 @@
 
 // Brute force code to count all anagrams
 
-void BruteForceAnagrams (int a[], int count) {
+void BruteForceAnagrams (int a[], int count, int input) {
 
 	int count1[10] = {0,0,0,0,0,0,0,0,0,0};
 	int count2[10] = {0,0,0,0,0,0,0,0,0,0};
@@ -21,107 +21,128 @@ void BruteForceAnagrams (int a[], int count) {
 	int anagrams[50000];
 	int finishedCount = 0;
 	bool found = false;
+	bool equalVal = false;
 
 	char string1[26];
 	char string2[26];
 
-	// compare current points with points ahead in the arra
-	for (int i = 0; i < count-1; ++i) {
-		sprintf(string1, "%d", a[i]);
+	sprintf(string1, "%d", input);
 
-
-		while(string1[index1] != '\0') {
-			switch (string1[index1]) {
-				case '0':
-					count1[0]++;
-				case '1':
-					count1[1]++;
-				case '2':
-					count1[2]++;
-				case '3':
-					count1[3]++;
-				case '4':
-					count1[4]++;
-				case '5':
-					count1[5]++;
-				case '6':
-					count1[6]++;
-				case '7':
-					count1[7]++;
-				case '8':
-					count1[8]++;
-				case '9':
-					count1[9]++;
-			}
-
-			index1++;
+	while(string1[index1] != '\0') {
+		switch (string1[index1]) {
+			case '0':
+				count1[0] = count1[0] + 1;
+				break;	
+			case '1':
+				count1[1] = count1[1] + 1;
+				break;
+			case '2':
+				count1[2] = count1[2] + 1;
+				break;
+			case '3':
+				count1[3] = count1[3] + 1;
+				break;
+			case '4':
+				count1[4] = count1[4] + 1;
+				break;
+			case '5':
+				count1[5] = count1[5] + 1;
+				break;
+			case '6':
+				count1[6] = count1[6] + 1;
+				break;
+			case '7':
+				count1[7] = count1[7] + 1;
+				break;
+			case '8':
+				count1[8] = count1[8] + 1;
+				break;
+			case '9':
+				count1[9] = count1[9] + 1;
+				break;
 		}
 
-		for (int j = i+1; j < count; ++j) {
-			if (i != j) {
-				sprintf(string2, "%d", a[j]);
+		index1++;
+	}
+
+	// compare current points with points ahead in the array
+
+	for (int j = 0; j < count; ++j) {
+		sprintf(string2, "%d", a[j]);
+
+		while(string2[index2] != '\0') {
+			switch (string2[index2]) {
+				case '0':
+					count2[0] = count2[0] + 1;
+					break;
+				case '1':
+					count2[1] = count2[1] + 1;
+					break;
+				case '2':
+					count2[2] = count2[2] + 1;
+					break;
+				case '3':
+					count2[3] = count2[3] + 1;
+					break;
+				case '4':
+					count2[4] = count2[4] + 1;
+					break;
+				case '5':
+					count2[5] = count2[5] + 1;
+					break;
+				case '6':
+					count2[6] = count2[6] + 1;
+					break;
+				case '7':
+					count2[7] = count2[7] + 1;
+					break;
+				case '8':
+					count2[8] = count2[8] + 1;
+					break;
+				case '9':
+					count2[9] = count2[9] + 1;
+					break;
 			}
 
-			while(string1[index2] != '\0') {
-				switch (string1[index2]) {
-					case '0':
-						count1[0]++;
-					case '1':
-						count1[1]++;
-					case '2':
-						count1[2]++;
-					case '3':
-						count1[3]++;
-					case '4':
-						count1[4]++;
-					case '5':
-						count1[5]++;
-					case '6':
-						count1[6]++;
-					case '7':
-						count1[7]++;
-					case '8':
-						count1[8]++;
-					case '9':
-						count1[9]++;
-				}
+			index2++;
+		}
 
-				index2++;
+		index2 = 0;
+
+		for (int k = 0; k < 10; ++k) {
+			if (count1[k] == count2[k]) {
+				equalVal = true;
+			} else {
+				equalVal = false;
+				break;
 			}
+		}
 
-			for (int i = 0; i < 10; ++i) {
-				if (count1[i] == count2[i]) {
-					if (i == 9) {
-						for (int i = 0; i < finishedCount; ++i) {
-							if (anagrams[finishedCount] == a[j]) {
-								found = true;
-							}
-						}
-
-						if (!found) {
-							finishedCount++;
-							printf("%d\n", finishedCount);
-							anagrams[finishedCount] = a[j];
-						}
-					}
-				} else {
+		if (equalVal) {
+			for (int x = 0; x < finishedCount; ++x) {
+				if (anagrams[x] == a[j]) {
+					found = true;
 					break;
 				}
 			}
 
-			for (int i = 0; i < 10; ++i) {
-				count2[i] = 0;
+			if (!found) {
+				anagrams[finishedCount] = a[j];
+				finishedCount++;
 			}
-
-			found = false;
 		}
 
-		for (int i = 0; i < 10; ++i) {
-			count1[i] = 0;
+		
+		for (int index = 0; index < 10; ++index) {
+			count2[index] = 0;
 		}
 
-			found = false;
+		found = false;
 	}
 
-	// printf("Number of inversions brute force: %d\n", inversions);
+	printf("Number of anagrams: %d\n", finishedCount);
+	printf("Anagrams:\n");
+	for (int i = 0; i < finishedCount; ++i) {
+		printf("%d\n", anagrams[i]);
+	}
 }

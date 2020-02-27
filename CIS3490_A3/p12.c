@@ -1,15 +1,18 @@
 // ****************************************************
 // Danyal Mahmood                          0956989
-// CIS 3490                                Assignment 2
+// CIS 3490                                Assignment 3
 // dmahmood@uoguelph.ca                    Feb 10, 2020
 // ****************************************************
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
 #include "functions.h"
 
 // Built using mergesort pseudocode from Lecture 5: divide and conquer
 
-void CountInversionsMerge(int b[], int c[], int a[], int p, int q, int *invCount) {
+void Merge(int b[], int c[], int a[], int p, int q) {
 	// merge algorithm
 	int i = 0;
 	int j = 0;
@@ -22,8 +25,6 @@ void CountInversionsMerge(int b[], int c[], int a[], int p, int q, int *invCount
 			a[k] = b[i];
 			i++;
 		} else {
-			// every remaining item in b array must be inversion with c[j], add number of items left to compare to inversion count
-			*invCount += p-i;
 			// add lement and increase later array index
 			a[k] = c[j];
 			j++;
@@ -49,8 +50,8 @@ void CountInversionsMerge(int b[], int c[], int a[], int p, int q, int *invCount
 	}
 }
 
-void DivideConquerInversion (int a[], int size, int *invCount) {
-	//mergesort algorithe-m
+void MergeSort (int a[], int size) {
+	//mergesort algorithm
 	if (size > 1) {
 
 		// determine half size of array
@@ -76,10 +77,61 @@ void DivideConquerInversion (int a[], int size, int *invCount) {
 		}
 
 		//split arrays further
-		DivideConquerInversion(firstHalf, half1, invCount);
-		DivideConquerInversion(secondHalf, half2, invCount);
+		MergeSort(firstHalf, half1);
+		MergeSort(secondHalf, half2);
 
 		// assess half arrays and sort in increasing order
-		CountInversionsMerge(firstHalf, secondHalf, a, half1, half2, invCount);
+		Merge(firstHalf, secondHalf, a, half1, half2);
 	}
 }
+
+void PreSortAnagrams (int a[], int count, int input) {
+	int anagrams[50000];
+	int finishedCount = 0;
+
+	char string1[26];
+	char string2[26];
+	int intCounter = 0;
+	char sortedNumber[52];
+	int splitArray[52];
+	char inputSorted[52];
+
+	sprintf(string1, "%d", input);
+	while(string1[intCounter] != '\0') {
+		splitArray[intCounter] = string1[intCounter] - '0';
+		intCounter++;
+	}
+	MergeSort(splitArray, strlen(string1));
+	for (int i = 0; i < intCounter; ++i) {
+		inputSorted[i] = splitArray[i] + '0';
+	}
+	inputSorted[intCounter] = '\0';
+	intCounter = 0;
+
+	for (int i = 0; i < count; ++i)
+	{
+		sprintf(string2, "%d", a[i]);
+		while(string2[intCounter] != '\0') {
+			splitArray[intCounter] = string2[intCounter] - '0';
+			intCounter++;
+		}
+		MergeSort(splitArray, strlen(string2));
+		for (int i = 0; i < intCounter; ++i) {
+			sortedNumber[i] = splitArray[i] + '0';
+		}
+		sortedNumber[intCounter] = '\0';
+		if (strcmp(sortedNumber,inputSorted) == 0) {
+			anagrams[finishedCount] = a[i];
+			finishedCount++;
+		}
+		intCounter = 0;
+		sortedNumber[0] = '\0';
+	}
+
+	printf("Number of anagrams: %d\n", finishedCount);
+	printf("Anagrams:\n");
+	for (int i = 0; i < finishedCount; ++i) {
+		printf("%d\n", anagrams[i]);
+	}
+}
+
