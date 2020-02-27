@@ -101,7 +101,7 @@ void PreSortAnagrams (int a[], int count, int input) {
 		splitArray[intCounter] = string1[intCounter] - '0';
 		intCounter++;
 	}
-	MergeSort(splitArray, strlen(string1));
+	MergeSort(splitArray, intCounter);
 	for (int i = 0; i < intCounter; ++i) {
 		inputSorted[i] = splitArray[i] + '0';
 	}
@@ -115,7 +115,7 @@ void PreSortAnagrams (int a[], int count, int input) {
 			splitArray[intCounter] = string2[intCounter] - '0';
 			intCounter++;
 		}
-		MergeSort(splitArray, strlen(string2));
+		MergeSort(splitArray, intCounter);
 		for (int i = 0; i < intCounter; ++i) {
 			sortedNumber[i] = splitArray[i] + '0';
 		}
@@ -125,7 +125,6 @@ void PreSortAnagrams (int a[], int count, int input) {
 			finishedCount++;
 		}
 		intCounter = 0;
-		sortedNumber[0] = '\0';
 	}
 
 	printf("Number of anagrams: %d\n", finishedCount);
