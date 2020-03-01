@@ -75,10 +75,13 @@ int main (int argc, char *argv[]) {
 		P2counter++;
 	}
 
-	for (int i = 0; i < P2counter; ++i)
-	{
+	for (int i = 0; i < P2counter; ++i) {
 		for (int j = 0; j < 80; ++j) {
-			
+			allLines[allCharCount] = lines[i][j];
+			allCharCount++;
+			if (lines[i][j] == '\n') {
+				break;
+			}
 		}
 	}
 
@@ -92,28 +95,27 @@ int main (int argc, char *argv[]) {
 		}
 
 		ftime(&start);
-		BruteForceStringMatch(option1Input, lines, P2counter, inputLength);
+		BruteForceStringMatch(option1Input, allLines, allCharCount, inputLength);
 		ftime(&end);
 		timeTaken = end.time-start.time + (end.millitm-start.millitm) * 0.001;
 		printf("Time taken: %0.4f\n", timeTaken);
 	}
 
-	if (menuChoice == 3) {
+	if (menuChoice == 4) {
+		printf("Enter string to look for: ");
+		scanf("%s", option1Input);
+		int i = 0;
+		while(option1Input[i] != '\0') {
+			inputLength++;
+			i++;
+		}
+
 		ftime(&start);
-		BruteForceConvexHull(x, y, P2counter);
+		HorspoolStringMatch(option1Input, allLines, allCharCount, inputLength);
 		ftime(&end);
 		timeTaken = end.time-start.time + (end.millitm-start.millitm) * 0.001;
 		printf("Time taken: %0.4f\n", timeTaken);
 	}
-
-	// if (menuChoice == 4)
-	// {
-	// 	ftime(&start);
-	// 	QuickSortConvexHull(x, y, P2counter);
-	// 	ftime(&end);
-	// 	timeTaken = end.time-start.time + (end.millitm-start.millitm) * 0.001;
-	// 	printf("Time taken: %0.4f\n", timeTaken);
-	// }
 
 	fclose(inFile);
 

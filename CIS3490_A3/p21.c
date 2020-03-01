@@ -9,29 +9,21 @@
 #include "functions.h"
 
 
-void BruteForceStringMatch (char input[], char array[44100][80], int count, int inputLength) {
+void BruteForceStringMatch (char input[], char array[], int count, int inputLength) {
 	int occurencesFound = 0;
 	int index = 0;
 	int tempi = 0;
-	int tempj = 0;
 	
 	for (int i = 0; i < count; ++i) {
-		for (int j = 0; j < 80; ++j) {
-			if (array[i][j] == '\n') {
+		index = 0;
+		tempi = i;
+		while(input[index] == array[tempi]) {
+			tempi++;
+			index++;
+
+			if (index == inputLength) {
+				occurencesFound++;
 				break;
-			}
-
-			index = 0;
-			tempi = i;
-			tempj = j;
-			while(array[tempi][tempj] && input[index] == array[tempi][tempj]) {
-				tempj++;
-				index++;
-
-				if (index == inputLength) {
-					occurencesFound++;
-					break;
-				}
 			}
 		}
 	}

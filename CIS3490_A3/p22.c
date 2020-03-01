@@ -9,12 +9,18 @@
 #include <math.h>
 #include "functions.h"
 
-void HorspoolStringMatch (char input[], char array[44100][80], int count, int inputLength) {
+void HorspoolStringMatch (char input[], char array[], int count, int inputLength) {
 	// create table values
 	char tableChar[50];
 	int shiftValues[50];
-	int tableIndex;
+
+	int tableIndex = 0;
 	bool alreadyExists = false;
+	int arrayIndex = inputLength-1;
+	int inputIndex = 0;
+	int tempArrayIndex = 0;
+	int occurencesFound = 0;
+	int shiftAmount = 0;
 
 	for (int i = 0; i < inputLength-1; ++i) {
 		for (int j = 0; j < 50; ++j) {
@@ -37,7 +43,29 @@ void HorspoolStringMatch (char input[], char array[44100][80], int count, int in
 		alreadyExists = false;
 	}
 
-	for (int i = inputLength-1; i < count; ++i) {
-		
+	while (arrayIndex <= count) {
+		inputIndex = inputLength-1;
+		shiftAmount = inputLength;
+		tempArrayIndex = arrayIndex;
+
+		while(array[tempArrayIndex] == input[inputIndex]) {
+			if (inputIndex == 0) {
+				occurencesFound++;
+				break;
+			}
+			inputIndex--;
+			tempArrayIndex--;
+		}
+
+		for (int j = 0; j < tableIndex; ++j) {
+			if (tableChar[j] == array[arrayIndex]) {
+				shiftAmount = shiftValues[j];
+				break;
+			}
+		}
+
+		arrayIndex += shiftAmount;
 	}
+
+	printf("Occurences Found: %d\n", occurencesFound);
 }
