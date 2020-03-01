@@ -1,7 +1,7 @@
 // ****************************************************
 // Danyal Mahmood                          0956989
-// CIS 3490                                Assignment 2
-// dmahmood@uoguelph.ca                    Feb 10, 2020
+// CIS 3490                                Assignment 3
+// dmahmood@uoguelph.ca                    Mar 09, 2020
 // ****************************************************
 
 #include <stdio.h>
@@ -11,20 +11,22 @@
 
 int main (int argc, char *argv[]) {
 
-	// if (argc != 3)
-	// {
-	// 	printf("Two files not specified. Exiting..\n");
-	// 	return -1;
-	// }
+	if (argc != 3)
+	{
+		printf("Two files not specified. Exiting..\n");
+		return -1;
+	}
 
 	int anagramNumbers[50000];
 	int P1Counter = 0;
-	// int P2counter = 0;
+	int P2counter = 0;
 	char numberStore[26];
+	char lines[44100][80];
 	struct timeb start, end;
 	double timeTaken;
 	char userInput[5];
 	char option1Input[52];
+	int inputLength = 0;
 
 	printf("1) Brute Force Anagram Detection\n");
     printf("2) Presort Anagram Detection\n");
@@ -65,34 +67,35 @@ int main (int argc, char *argv[]) {
 		printf("Time taken: %0.4f\n", timeTaken);
 	}
 
-	// if (menuChoice == 2) {
-	// 	int inversionsDivideConquer = 0;
-	// 	ftime(&start);
-	// 	DivideConquerInversion(distinctNumbers, P1Counter, &inversionsDivideConquer);
-	// 	printf("Number of inversions divide and conquer force: %d\n", inversionsDivideConquer);
-	// 	ftime(&end);
-	// 	timeTaken = end.time-start.time + (end.millitm-start.millitm) * 0.001;
-	// 	printf("Time taken: %0.4f\n", timeTaken);
-	// }
+	inFile = fopen(argv[2], "r");
 
-	// inFile = fopen(argv[2], "r");
+	while(fgets(lines[P2counter], 80, inFile)) {
+		P2counter++;
+	}
 
+	if (menuChoice == 3) {
+		printf("Enter string to look for: ");
+		scanf("%s", option1Input);
+		int i = 0;
+		while(option1Input[i] != '\0') {
+			inputLength++;
+			i++;
+		}
 
-	// while(fscanf(inFile,"%s", numberStore)>0) {
-	//     x[P2counter] = atof(numberStore);
-	//     fscanf(inFile,"%s", numberStore);
-	//     y[P2counter] = atof(numberStore);
-	//     P2counter++;
-	// }
+		ftime(&start);
+		BruteForceStringMatch(option1Input, lines, P2counter, inputLength);
+		ftime(&end);
+		timeTaken = end.time-start.time + (end.millitm-start.millitm) * 0.001;
+		printf("Time taken: %0.4f\n", timeTaken);
+	}
 
-	// if (menuChoice == 3)
-	// {
-	// 	ftime(&start);
-	// 	BruteForceConvexHull(x, y, P2counter);
-	// 	ftime(&end);
-	// 	timeTaken = end.time-start.time + (end.millitm-start.millitm) * 0.001;
-	// 	printf("Time taken: %0.4f\n", timeTaken);
-	// }
+	if (menuChoice == 3) {
+		ftime(&start);
+		BruteForceConvexHull(x, y, P2counter);
+		ftime(&end);
+		timeTaken = end.time-start.time + (end.millitm-start.millitm) * 0.001;
+		printf("Time taken: %0.4f\n", timeTaken);
+	}
 
 	// if (menuChoice == 4)
 	// {
