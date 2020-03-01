@@ -8,5 +8,5 @@ void PreSortAnagrams (int a[], int count, int input);
 void BruteForceStringMatch (char input[], char array[], int count, int inputLength);
 // solution for p.22
 void HorspoolStringMatch (char input[], char array[], int count, int inputLength);
-
-void insertionSort(double* x, double* y, int length);
+// solution for p.23
+void BoyerMooreStringMatch (char input[], char array[], int count, int inputLength);

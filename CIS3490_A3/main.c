@@ -117,6 +117,22 @@ int main (int argc, char *argv[]) {
 		printf("Time taken: %0.4f\n", timeTaken);
 	}
 
+	if (menuChoice == 5) {
+		printf("Enter string to look for: ");
+		scanf("%s", option1Input);
+		int i = 0;
+		while(option1Input[i] != '\0') {
+			inputLength++;
+			i++;
+		}
+
+		ftime(&start);
+		BoyerMooreStringMatch(option1Input, allLines, allCharCount, inputLength);
+		ftime(&end);
+		timeTaken = end.time-start.time + (end.millitm-start.millitm) * 0.001;
+		printf("Time taken: %0.4f\n", timeTaken);
+	}
+
 	fclose(inFile);
 
 	return 0;
