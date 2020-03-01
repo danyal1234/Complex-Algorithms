@@ -22,6 +22,8 @@ int main (int argc, char *argv[]) {
 	int P2counter = 0;
 	char numberStore[26];
 	char lines[44100][80];
+	char allLines[44100*80];
+	int allCharCount = 0;
 	struct timeb start, end;
 	double timeTaken;
 	char userInput[5];
@@ -71,6 +73,13 @@ int main (int argc, char *argv[]) {
 
 	while(fgets(lines[P2counter], 80, inFile)) {
 		P2counter++;
+	}
+
+	for (int i = 0; i < P2counter; ++i)
+	{
+		for (int j = 0; j < 80; ++j) {
+			
+		}
 	}
 
 	if (menuChoice == 3) {

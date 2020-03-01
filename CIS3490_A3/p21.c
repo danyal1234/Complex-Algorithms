@@ -17,6 +17,10 @@ void BruteForceStringMatch (char input[], char array[44100][80], int count, int 
 	
 	for (int i = 0; i < count; ++i) {
 		for (int j = 0; j < 80; ++j) {
+			if (array[i][j] == '\n') {
+				break;
+			}
+
 			index = 0;
 			tempi = i;
 			tempj = j;
