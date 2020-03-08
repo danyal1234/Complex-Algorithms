@@ -85,7 +85,7 @@ void MergeSort (int a[], int size) {
 	}
 }
 
-// find anagrams by using presorting method
+// find anagrams by using presorting method by sorting numbers into signatures
 
 void PreSortAnagrams (int a[], int count, int input) {
 	int anagrams[50000];

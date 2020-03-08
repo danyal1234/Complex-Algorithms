@@ -54,7 +54,7 @@ void BoyerMooreStringMatch (char input[], char array[], int count, int inputLeng
 	int tempShift = 0;
 	int foundCount = 0;
 
-	// compute good suffix table based on matched Length
+	// compute good suffix table based on all possible matched Length
 	while(matchedLength != inputLength){
 		suffixFound = false;
 
