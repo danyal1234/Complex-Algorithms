@@ -26,6 +26,7 @@ void BruteForceStringMatch (char input[], char array[], int count, int inputLeng
 			tempi++;
 			index++;
 
+			// if strings match occurence found
 			if (index == inputLength) {
 				occurencesFound++;
 				break;

@@ -13,8 +13,8 @@
 
 void HorspoolStringMatch (char input[], char array[], int count, int inputLength) {
 	// create table values
-	char tableChar[50];
-	int shiftValues[50];
+	char tableChar[52];
+	int shiftValues[52];
 
 	int tableIndex = 0;
 	bool alreadyExists = false;
@@ -51,6 +51,7 @@ void HorspoolStringMatch (char input[], char array[], int count, int inputLength
 
 		// check string match from rightmost index first
 		while(array[tempArrayIndex] == input[inputIndex]) {
+			//if strings matches increase occurences found
 			if (inputIndex == 0) {
 				occurencesFound++;
 				break;
@@ -67,11 +68,12 @@ void HorspoolStringMatch (char input[], char array[], int count, int inputLength
 			}
 		}
 
-		// shift index correct
+		// shift index correct amount
 		arrayIndex += shiftAmount;
 		shiftCount++;
 	}
 
+	// print occurences and amount of shifts
 	printf("Occurences Found: %d\n", occurencesFound);
 	printf("Shift count: %d\n", shiftCount);
 }

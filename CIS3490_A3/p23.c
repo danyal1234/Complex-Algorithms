@@ -13,11 +13,12 @@
 
 void BoyerMooreStringMatch (char input[], char array[], int count, int inputLength) {
 	// create bad match table values
-	char badTableChar[50];
-	int badShiftValues[50];
+	char badTableChar[52];
+	int badShiftValues[52];
 
 	// create good match table
-	int goodTableMatch[30] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+	int goodTableMatch[52] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+							  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,};
 
 	int badTableIndex = 0;
 	bool alreadyExists = false;

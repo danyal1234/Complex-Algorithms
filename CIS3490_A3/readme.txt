@@ -18,7 +18,7 @@ The user can select which program to run based on the options menu
 
 Q 2.4
 ****************************************************
-Comparing the brute force method and horspools method, the brute force on average takes 1.2x longer and requires 4.9x more shit operations on average. The calculation to determine these numbers can be noted below, which used 10 different input of different lengths. The reason for this is brute force exhaustively visits every character in the file, but the horspools uses a preprocessed shift table which allows the algorithm to shift through characters at a rate of higher than 1. The longer the input, the more flexibility and larger shift values the shift table has, which makes the horspools algorithm even faster which can be noticed in the calculations below. It can be noted that when the input lengths are shorter the closer the Horspools algorithm is to brute force.
+Comparing the brute force method and horspools method, the brute force on average takes 1.2x longer and requires 4.9x more shit operations on average. The calculation to determine these numbers can be noted below, which used 10 different inputs of different lengths. The reason for this is brute force exhaustively visits every character in the file, but the horspools uses a preprocessed shift table which allows the algorithm to shift through characters at a rate of higher than 1. The longer the input, the more flexibility and larger shift values the shift table has, which makes the horspools algorithm even faster which can be noticed in the calculations below. It can be noted that when the input lengths are shorter the closer the Horspools algorithm performance is to brute force.
 
 Calculations
 *****************************

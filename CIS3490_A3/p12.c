@@ -144,6 +144,6 @@ void PreSortAnagrams (int a[], int count, int input) {
 		}
 		printf("%d\n", anagrams[i]);
 	}
+
 	printf("Number of anagrams: %d\n", totalCount);
 }
-
