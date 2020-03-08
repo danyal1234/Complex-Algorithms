@@ -9,7 +9,7 @@
 #include <math.h>
 #include "functions.h"
 
-// Hoorspools 
+// Hoorspools method of string match from textbook pg. 259
 
 void HorspoolStringMatch (char input[], char array[], int count, int inputLength) {
 	// create table values
@@ -27,13 +27,9 @@ void HorspoolStringMatch (char input[], char array[], int count, int inputLength
 
 	// create shift table
 	for (int i = 0; i < inputLength-1; ++i) {
-		for (int j = 0; j < 50; ++j) {
-			if (!tableChar[j]) {
-				break;
-			}
-
+		for (int j = 0; j < tableIndex; ++j) {
 			if (input[i] == tableChar[j]) {
-				shiftValues[i] = inputLength - i - 1;
+				shiftValues[j] = inputLength - i - 1;
 				alreadyExists = true;
 			}
 		}
@@ -47,11 +43,13 @@ void HorspoolStringMatch (char input[], char array[], int count, int inputLength
 		alreadyExists = false;
 	}
 
+	// search for substrings
 	while (arrayIndex <= count) {
 		inputIndex = inputLength-1;
 		shiftAmount = inputLength;
 		tempArrayIndex = arrayIndex;
 
+		// check string match from rightmost index first
 		while(array[tempArrayIndex] == input[inputIndex]) {
 			if (inputIndex == 0) {
 				occurencesFound++;
@@ -61,6 +59,7 @@ void HorspoolStringMatch (char input[], char array[], int count, int inputLength
 			tempArrayIndex--;
 		}
 
+		// use shift table value and shift
 		for (int j = 0; j < tableIndex; ++j) {
 			if (tableChar[j] == array[arrayIndex]) {
 				shiftAmount = shiftValues[j];
@@ -68,6 +67,7 @@ void HorspoolStringMatch (char input[], char array[], int count, int inputLength
 			}
 		}
 
+		// shift index correct
 		arrayIndex += shiftAmount;
 		shiftCount++;
 	}

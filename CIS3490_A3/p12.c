@@ -113,7 +113,7 @@ void PreSortAnagrams (int a[], int count, int input) {
 	inputSorted[intCounter] = '\0';
 	intCounter = 0;
 
-	// find anagrams based on presorted method
+	// find anagrams based on presorted integers
 	for (int i = 0; i < count; ++i)
 	{
 		sprintf(string2, "%d", a[i]);
@@ -138,6 +138,7 @@ void PreSortAnagrams (int a[], int count, int input) {
 	for (int i = 0; i < finishedCount; ++i) {
 		if (anagrams[i] == input) {
 			finishedCount--;
+			continue;
 		}
 		printf("%d\n", anagrams[i]);
 	}

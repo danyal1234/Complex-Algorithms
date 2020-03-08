@@ -30,13 +30,9 @@ void BoyerMooreStringMatch (char input[], char array[], int count, int inputLeng
 
 	// create bad matchtable
 	for (int i = 0; i < inputLength-1; ++i) {
-		for (int j = 0; j < 50; ++j) {
-			if (!badTableChar[j]) {
-				break;
-			}
-
+		for (int j = 0; j < badTableIndex; ++j) {
 			if (input[i] == badTableChar[j]) {
-				badShiftValues[i] = inputLength - i - 1;
+				badShiftValues[j] = inputLength - i - 1;
 				alreadyExists = true;
 			}
 		}
@@ -71,24 +67,23 @@ void BoyerMooreStringMatch (char input[], char array[], int count, int inputLeng
 					tempShift = checkCounter + 1;
 					suffixFound = true;
 				}
-			}
 
-			// verify substring 
-			while(foundCount != matchedLength) {
-				substringCount--;
-				if (input[inputLength-1] == input[inputLength-2-substringCount]) {
-					foundCount++;
-					//if prefix found, indicate shift amount based on matched
-					if (matchedLength == foundCount) {
-						suffixFound = true;
-						tempShift = checkCounter+1;
+				// verify substring 
+				while(foundCount != matchedLength) {
+					substringCount--;
+					if (input[inputLength-1-substringCount] == input[inputLength-2-substringCount]) {
+						foundCount++;
+						//if prefix found, indicate shift amount based on matched
+						if (matchedLength == foundCount) {
+							suffixFound = true;
+							tempShift = checkCounter+1;
+							break;
+						}
+					} else {
 						break;
 					}
-				} else {
-					break;
 				}
 			}
-
 
 			if (inputLength-2-checkCounter == 0 || suffixFound) {
 				// if prefix not found shift entire legth of string
@@ -104,6 +99,7 @@ void BoyerMooreStringMatch (char input[], char array[], int count, int inputLeng
 		goodTableMatch[matchedLength] = tempShift;
 		matchedLength++;
 		checkCounter = 0;
+		foundCount = 0;
 	}
 
 	// search for string
