@@ -21,6 +21,7 @@ void BruteForceStringMatch (char input[], char array[], int count, int inputLeng
 		tempi = i;
 		shiftCount++;
 
+		// compare while strings match
 		while(input[index] == array[tempi]) {
 			tempi++;
 			index++;

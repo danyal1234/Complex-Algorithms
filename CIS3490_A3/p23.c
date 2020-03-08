@@ -122,6 +122,7 @@ void BoyerMooreStringMatch (char input[], char array[], int count, int inputLeng
 		// find shift amount based on bad match table
 		for (int j = 0; j < badTableIndex; ++j) {
 			if (badTableChar[j] == array[tempArrayIndex]) {
+				// determine shift amount based on Boyer-Moore
 				shiftAmount = badShiftValues[j] - matchCount;
 				if (shiftAmount<=0) {
 					shiftAmount = 1;

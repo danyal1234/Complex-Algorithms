@@ -123,7 +123,7 @@ void BruteForceAnagrams (int a[], int count, int input) {
 		// check to see valid anagrams and store
 		if (equalVal) {
 			for (int x = 0; x < finishedCount; ++x) {
-				if (anagrams[x] == a[j] ||  anagrams[x] == input) {
+				if (anagrams[x] == a[j]) {
 					found = true;
 					break;
 				}
@@ -143,10 +143,16 @@ void BruteForceAnagrams (int a[], int count, int input) {
 		found = false;
 	}
 
+	int totalCount = finishedCount;
+
 	printf("Anagrams:\n");
 	for (int i = 0; i < finishedCount; ++i) {
+		if (anagrams[i] == input) {
+			totalCount--;
+			continue;
+		}
 		printf("%d\n", anagrams[i]);
 	}
 
-	printf("Number of anagrams: %d\n", finishedCount);
+	printf("Number of anagrams: %d\n", totalCount);
 }

@@ -42,6 +42,7 @@ int main (int argc, char *argv[]) {
 
 	FILE* inFile = fopen(argv[1], "r");
 
+	// parse integers
 	while(fscanf(inFile,"%s", numberStore)>0) {
 	    anagramNumbers[P1Counter] = atoi(numberStore);
 	    P1Counter++;
@@ -75,6 +76,7 @@ int main (int argc, char *argv[]) {
 		P2counter++;
 	}
 
+	// parse lines of text
 	for (int i = 0; i < P2counter; ++i) {
 		for (int j = 0; j < 80; ++j) {
 			allLines[allCharCount] = lines[i][j];
