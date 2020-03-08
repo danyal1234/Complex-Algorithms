@@ -28,6 +28,7 @@ void BruteForceAnagrams (int a[], int count, int input) {
 
 	sprintf(string1, "%d", input);
 
+	//make count of characters of input
 	while(string1[index1] != '\0') {
 		switch (string1[index1]) {
 			case '0':
@@ -65,11 +66,11 @@ void BruteForceAnagrams (int a[], int count, int input) {
 		index1++;
 	}
 
-	// compare current points with points ahead in the array
 
 	for (int j = 0; j < count; ++j) {
 		sprintf(string2, "%d", a[j]);
 
+		// count characters
 		while(string2[index2] != '\0') {
 			switch (string2[index2]) {
 				case '0':
@@ -109,6 +110,7 @@ void BruteForceAnagrams (int a[], int count, int input) {
 
 		index2 = 0;
 
+		// check to see if amount of characters are equal
 		for (int k = 0; k < 10; ++k) {
 			if (count1[k] == count2[k]) {
 				equalVal = true;
@@ -120,7 +122,7 @@ void BruteForceAnagrams (int a[], int count, int input) {
 
 		if (equalVal) {
 			for (int x = 0; x < finishedCount; ++x) {
-				if (anagrams[x] == a[j]) {
+				if (anagrams[x] == a[j] ||  anagrams[x] == input) {
 					found = true;
 					break;
 				}

@@ -9,6 +9,8 @@
 #include <math.h>
 #include "functions.h"
 
+// Hoorspools 
+
 void HorspoolStringMatch (char input[], char array[], int count, int inputLength) {
 	// create table values
 	char tableChar[50];
@@ -21,7 +23,9 @@ void HorspoolStringMatch (char input[], char array[], int count, int inputLength
 	int tempArrayIndex = 0;
 	int occurencesFound = 0;
 	int shiftAmount = 0;
+	int shiftCount = 0;
 
+	// create shift table
 	for (int i = 0; i < inputLength-1; ++i) {
 		for (int j = 0; j < 50; ++j) {
 			if (!tableChar[j]) {
@@ -65,7 +69,9 @@ void HorspoolStringMatch (char input[], char array[], int count, int inputLength
 		}
 
 		arrayIndex += shiftAmount;
+		shiftCount++;
 	}
 
 	printf("Occurences Found: %d\n", occurencesFound);
+	printf("Shift count: %d\n", shiftCount);
 }

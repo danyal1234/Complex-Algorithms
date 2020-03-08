@@ -25,7 +25,7 @@ void Merge(int b[], int c[], int a[], int p, int q) {
 			a[k] = b[i];
 			i++;
 		} else {
-			// add lement and increase later array index
+			// add element and increase later array index
 			a[k] = c[j];
 			j++;
 		}
@@ -85,6 +85,8 @@ void MergeSort (int a[], int size) {
 	}
 }
 
+// find anagrams by using presorting method
+
 void PreSortAnagrams (int a[], int count, int input) {
 	int anagrams[50000];
 	int finishedCount = 0;
@@ -96,11 +98,14 @@ void PreSortAnagrams (int a[], int count, int input) {
 	int splitArray[52];
 	char inputSorted[52];
 
+	// convert integers into single digit array to sort 
 	sprintf(string1, "%d", input);
 	while(string1[intCounter] != '\0') {
 		splitArray[intCounter] = string1[intCounter] - '0';
 		intCounter++;
 	}
+
+	// sort array and converted back into single int
 	MergeSort(splitArray, intCounter);
 	for (int i = 0; i < intCounter; ++i) {
 		inputSorted[i] = splitArray[i] + '0';
@@ -108,6 +113,7 @@ void PreSortAnagrams (int a[], int count, int input) {
 	inputSorted[intCounter] = '\0';
 	intCounter = 0;
 
+	// find anagrams based on presorted method
 	for (int i = 0; i < count; ++i)
 	{
 		sprintf(string2, "%d", a[i]);
@@ -127,10 +133,14 @@ void PreSortAnagrams (int a[], int count, int input) {
 		intCounter = 0;
 	}
 
-	printf("Number of anagrams: %d\n", finishedCount);
+	// display anagrams
 	printf("Anagrams:\n");
 	for (int i = 0; i < finishedCount; ++i) {
+		if (anagrams[i] == input) {
+			finishedCount--;
+		}
 		printf("%d\n", anagrams[i]);
 	}
+	printf("Number of anagrams: %d\n", finishedCount);
 }
 
