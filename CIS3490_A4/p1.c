@@ -32,12 +32,22 @@ TreeNode* createTree (double mainTable[][600], int rootTable[][600], char words[
 	insertedCount++;
 
 	toReturn->left = createTree(mainTable, rootTable, words, leftindex, rootTable[leftindex][rightindex]-1);
+	if (toReturn->left == NULL) {
+		// if (rootTable[rootTable[leftindex][rightindex]][rightindex] != 0) {
+		// 	printf("%s %d\n", words[rootTable[rootTable[leftindex][rightindex]][rightindex]], rootTable[rootTable[leftindex][rightindex]][rightindex]);
+		// 	TreeNode* rightNode = (TreeNode*)malloc(sizeof(TreeNode));
+		// 	strcpy(rightNode->key, words[rootTable[rootTable[leftindex][rightindex]][rightindex]]);
+		// 	rightNode->averageComparisons = mainTable[rootTable[leftindex][rightindex]][rightindex];
+		// 	toReturn->right = rightNode;
+		// }
+		return toReturn;
+	}
 	toReturn->right = createTree(mainTable, rootTable, words, rootTable[leftindex][rightindex], rightindex);
 
 	return toReturn;
 }
 
-void OptimalBSTSearch (char words[][52], double probabilities[], int totalUniqueWords) {
+void OptimalBSTSearch (char words[][52], double probabilities[], int totalUniqueWords, char* userInput) {
 	double mainTable[totalUniqueWords+1][totalUniqueWords];
 	int rootTable[totalUniqueWords+1][totalUniqueWords];
 	int j = 0;
@@ -81,4 +91,28 @@ void OptimalBSTSearch (char words[][52], double probabilities[], int totalUnique
 
 	root.left = createTree(mainTable, rootTable, words, 1, rootTable[1][totalUniqueWords]-1);
 	root.right = createTree(mainTable, rootTable, words, rootTable[1][totalUniqueWords], totalUniqueWords);
+
+	TreeNode* nodeIter = &root;
+
+	while(1) {
+		if (strcmp(nodeIter->key, userInput) == 0) {
+			printf("Compared with %s (%0.3f), found.\n", nodeIter->key, nodeIter->averageComparisons);
+			return;
+		} else if (strcmp(userInput, nodeIter->key) > 0) {
+			printf("Compared with %s (%0.3f), go right subtree.\n", nodeIter->key, nodeIter->averageComparisons);
+			nodeIter = nodeIter->right;
+			if (nodeIter == NULL) {
+				printf("Not found.\n");
+				return;
+			}
+		} else {
+			printf("Compared with %s (%0.3f), go left subtree.\n", nodeIter->key, nodeIter->averageComparisons);
+			nodeIter = nodeIter->left;
+			if (nodeIter == NULL) {
+				printf("Not found.\n");
+				return;
+			}
+		}
+	}
+
 }

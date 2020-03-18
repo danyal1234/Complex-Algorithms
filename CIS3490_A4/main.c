@@ -56,7 +56,7 @@ int main (int argc, char *argv[]) {
 	    P1Counter++;
 	}
 
-	for (int i = 0; i < P1Counter; ++i) {
+	for (int i = 1; i < P1Counter; ++i) {
 		wordProbability[i] = (double)wordFrequency[i] / (double)totalWords;
 	}
 
@@ -77,7 +77,7 @@ int main (int argc, char *argv[]) {
 	if (menuChoice == 1) {
 		printf("Enter a key: ");
 		scanf("%s", option1Input);
-		OptimalBSTSearch(words, wordProbability, P1Counter-1);
+		OptimalBSTSearch(words, wordProbability, P1Counter-1, option1Input);
 	}
 
 	// if (menuChoice == 2) {
