@@ -1,7 +1,7 @@
 // ****************************************************
 // Danyal Mahmood                          0956989
-// CIS 3490                                Assignment 3
-// dmahmood@uoguelph.ca                    Mar 09, 2020
+// CIS 3490                                Assignment 4
+// dmahmood@uoguelph.ca                    Mar 30, 2020
 // ****************************************************
 
 #include <stdio.h>
@@ -9,16 +9,6 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include "functions.h"
-
-int insertedCount = 1;
-
-typedef struct treeNode TreeNode;
-struct treeNode{
-	char key[52];
-	double averageComparisons;
-	TreeNode* left;
-	TreeNode* right;
-};
 
 TreeNode* createTree (double mainTable[][600], int rootTable[][600], char words[][52], int leftindex, int rightindex) {
 	if (rootTable[leftindex][rightindex] == 0) {
@@ -28,8 +18,6 @@ TreeNode* createTree (double mainTable[][600], int rootTable[][600], char words[
 	TreeNode* toReturn = (TreeNode*)malloc(sizeof(TreeNode));
 	strcpy(toReturn->key, words[rootTable[leftindex][rightindex]]);
 	toReturn->averageComparisons = mainTable[leftindex][rightindex];
-
-	insertedCount++;
 
 	toReturn->left = createTree(mainTable, rootTable, words, leftindex, rootTable[leftindex][rightindex]-1);
 	if (toReturn->left == NULL) {

@@ -80,11 +80,11 @@ int main (int argc, char *argv[]) {
 		OptimalBSTSearch(words, wordProbability, P1Counter-1, option1Input);
 	}
 
-	// if (menuChoice == 2) {
-	// 	printf("Enter a key: ");
-	// 	scanf("%s", option1Input);
-	// 	BruteForceAnagrams(anagramNumbers, P1Counter, option1Input);
-	// }
+	if (menuChoice == 2) {
+		printf("Enter a key: ");
+		scanf("%s", option1Input);
+		GreedyBSTSearch(words, wordProbability, P1Counter-1, option1Input);
+	}
 
 	fclose(inFile);
 
