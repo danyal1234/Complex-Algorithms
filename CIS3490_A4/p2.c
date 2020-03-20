@@ -10,18 +10,18 @@
 #include <math.h>
 #include "functions.h"
 
-TreeNode* createTreeNode (char words[][52], double probabilities[], int size) {
-	if (size == 1) {
+TreeNode* createTreeNode (char words[][52], double probabilities[], int leftindex, int rightindex) {
+	if (leftindex - rightindex == 0) {
 		TreeNode* toReturn = (TreeNode*)malloc(sizeof(TreeNode));
-		strcpy(toReturn->key, words[0]);
-		toReturn->averageComparisons = probabilities[0];
+		strcpy(toReturn->key, words[leftindex]);
+		toReturn->averageComparisons = probabilities[leftindex];
 		return toReturn;
 	}
 
 	double maxProbability = 0;
 	int maxProbabilityIndex;
 
-	for (int i = 0; i < size; ++i) {
+	for (int i = leftindex; i <= rightindex; ++i) {
 		if (probabilities[i] > maxProbability) {
 			maxProbability = probabilities[i];
 			maxProbabilityIndex = i;
@@ -32,33 +32,13 @@ TreeNode* createTreeNode (char words[][52], double probabilities[], int size) {
 	strcpy(toReturn->key, words[maxProbabilityIndex]);
 	toReturn->averageComparisons = maxProbability;
 
-	int half1 = maxProbabilityIndex - 1;
-	int half2 = size - maxProbabilityIndex - 1;
-	if (half1 < 0) {
-		half1 = 0;
-	}
-
-	char firstHalf[half1][52];
-	char secondHalf[half2][52];
-	double firstHalfProb[half1];
-	double secondHalfProb[half2];
-
-	for (int i = 0; i < maxProbabilityIndex; ++i) {
-		strcpy(firstHalf[i], words[i]); 
-		firstHalfProb[i] = probabilities[i];
-	}
-
-	for (int i = maxProbabilityIndex+1; i < size; ++i) {
-		strcpy(secondHalf[i-maxProbabilityIndex-1], words[i]);
-		secondHalfProb[i-maxProbabilityIndex-1] = probabilities[i];
-	}
-
-	if (half1 >= 1) {
-		toReturn->left = createTreeNode(firstHalf, firstHalfProb, half1);
-	}
-
-	if (half2 >= 1) {
-		toReturn->right = createTreeNode(secondHalf, secondHalfProb, half2);
+	if (maxProbabilityIndex == leftindex) {
+		toReturn->right = createTreeNode(words, probabilities, leftindex+1, rightindex);
+	} else if (maxProbabilityIndex == rightindex) {
+		toReturn->left = createTreeNode(words, probabilities, leftindex, rightindex-1);
+	} else {
+		toReturn->left = createTreeNode(words, probabilities, leftindex, maxProbabilityIndex-1);
+		toReturn->right = createTreeNode(words, probabilities, maxProbabilityIndex+1, rightindex);
 	}
 
 	return toReturn;
@@ -68,37 +48,19 @@ void GreedyBSTSearch (char words[][52], double probabilities[], int totalUniqueW
 	double maxProbability = 0;
 	int maxProbabilityIndex;
 
-	for (int i = 0; i < totalUniqueWords; ++i) {
+	for (int i = 0; i <= totalUniqueWords; ++i) {
 		if (probabilities[i] > maxProbability) {
 			maxProbability = probabilities[i];
 			maxProbabilityIndex = i;
 		}
 	}
 
-	int half1 = maxProbabilityIndex - 1;
-	int half2 = totalUniqueWords - maxProbabilityIndex - 1;
-
-	char firstHalf[half1][52];
-	char secondHalf[half2][52];
-	double firstHalfProb[half1];
-	double secondHalfProb[half2];
-
-	for (int i = 1; i < maxProbabilityIndex; ++i) {
-		strcpy(firstHalf[i-1], words[i]); 
-		firstHalfProb[i-1] = probabilities[i];
-	}
-
-	for (int i = maxProbabilityIndex+1; i < totalUniqueWords; ++i) {
-		strcpy(secondHalf[i-maxProbabilityIndex-1], words[i]);
-		secondHalfProb[i-maxProbabilityIndex-1] = probabilities[i];	
-	}
-
 	TreeNode root;
 	strcpy(root.key, words[maxProbabilityIndex]);
 	root.averageComparisons = maxProbability;
 
-	root.left = createTreeNode(firstHalf, firstHalfProb, half1);
-	root.right = createTreeNode(secondHalf, secondHalfProb, half2);
+	root.left = createTreeNode(words, probabilities, 1, maxProbabilityIndex-1);
+	root.right = createTreeNode(words, probabilities, maxProbabilityIndex+1, totalUniqueWords);
 
 	TreeNode* nodeIter = &root;
 
