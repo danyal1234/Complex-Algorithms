@@ -11,7 +11,7 @@
 #include "functions.h"
 
 TreeNode* createTreeNode (char words[][52], double probabilities[], int size) {
-	if (size == 1) {
+	if (size < 2) {
 		return NULL;
 	}
 
@@ -37,21 +37,21 @@ TreeNode* createTreeNode (char words[][52], double probabilities[], int size) {
 	double firstHalfProb[half1];
 	double secondHalfProb[half2];
 
-	for (int i = 0; i < half1; ++i) {
+	for (int i = 1; i < maxProbabilityIndex; ++i) {
 		strcpy(firstHalf[i], words[i]); 
 		firstHalfProb[i] = probabilities[i];
 	}
 
-	for (int i = half1+1; i < size; ++i) {
-		strcpy(secondHalf[i-half1+1], words[i]);
-		secondHalfProb[i] = probabilities[i];
+	for (int i = maxProbabilityIndex+1; i < size; ++i) {
+		strcpy(secondHalf[i-maxProbabilityIndex-1], words[i]);
+		secondHalfProb[i-maxProbabilityIndex-1] = probabilities[i];
 	}
 
-	toReturn->left = createTreeNode(firstHalf, firstHalfProb, half1);
-	if (toReturn->left == NULL) {
-		return toReturn;
-	}
-	toReturn->right = createTreeNode(secondHalf, secondHalfProb, half2);
+	// toReturn->left = createTreeNode(firstHalf, firstHalfProb, half1);
+	// if (toReturn->left == NULL) {
+	// 	return toReturn;
+	// }
+	// toReturn->right = createTreeNode(secondHalf, secondHalfProb, half2);
 
 	return toReturn;
 }
@@ -75,40 +75,41 @@ void GreedyBSTSearch (char words[][52], double probabilities[], int totalUniqueW
 	double firstHalfProb[half1];
 	double secondHalfProb[half2];
 
-	for (int i = 0; i < half1; ++i) {
+	for (int i = 1; i < maxProbabilityIndex; ++i) {
 		strcpy(firstHalf[i], words[i]); 
 		firstHalfProb[i] = probabilities[i];
 	}
 
-	for (int i = half1+1; i < totalUniqueWords; ++i) {
-		strcpy(secondHalf[i-half1+1], words[i]);
-		secondHalfProb[i] = probabilities[i];
+	for (int i = maxProbabilityIndex+1; i <= totalUniqueWords; ++i) {
+		strcpy(secondHalf[i-maxProbabilityIndex-1], words[i]);
+		secondHalfProb[i-maxProbabilityIndex-1] = probabilities[i];
 	}
 
 	TreeNode root;
 	strcpy(root.key, words[maxProbabilityIndex]);
 	root.averageComparisons = maxProbability;
 
-	printf("%s %0.3f\n", root.key, root.averageComparisons);
-
 	root.left = createTreeNode(firstHalf, firstHalfProb, half1);
 	root.right = createTreeNode(secondHalf, secondHalfProb, half2);
+
+	printf("%s %0.4f\n", root.left->key, root.left->averageComparisons);
+	printf("%s %0.4f\n", root.right->key, root.right->averageComparisons);
 
 	TreeNode* nodeIter = &root;
 
 	while(1) {
 		if (strcmp(nodeIter->key, userInput) == 0) {
-			printf("Compared with %s (%0.2f), found.\n", nodeIter->key, nodeIter->averageComparisons);
+			printf("Compared with %s (%0.4f), found.\n", nodeIter->key, nodeIter->averageComparisons);
 			return;
 		} else if (strcmp(userInput, nodeIter->key) > 0) {
-			printf("Compared with %s (%0.2f), go right subtree.\n", nodeIter->key, nodeIter->averageComparisons);
+			printf("Compared with %s (%0.4f), go right subtree.\n", nodeIter->key, nodeIter->averageComparisons);
 			nodeIter = nodeIter->right;
 			if (nodeIter == NULL) {
 				printf("Not found.\n");
 				return;
 			}
 		} else {
-			printf("Compared with %s (%0.2f), go left subtree.\n", nodeIter->key, nodeIter->averageComparisons);
+			printf("Compared with %s (%0.4f), go left subtree.\n", nodeIter->key, nodeIter->averageComparisons);
 			nodeIter = nodeIter->left;
 			if (nodeIter == NULL) {
 				printf("Not found.\n");
