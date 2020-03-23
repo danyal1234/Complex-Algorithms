@@ -16,6 +16,13 @@ int main (int argc, char *argv[]) {
 		printf("File not specified. Exiting..\n");
 		return -1;
 	}
+	
+	FILE* inFile = fopen(argv[1], "r");
+
+	if (inFile == NULL) {
+		printf("File not found. Exiting..\n");
+		return -1;
+	}
 
 	char words[2045][52];
 	int wordFrequency[2045];
@@ -34,7 +41,6 @@ int main (int argc, char *argv[]) {
 	scanf("%s", userInput);
 	int menuChoice  = atoi(userInput);
 
-	FILE* inFile = fopen(argv[1], "r");
 
 	// parse words from file
 	while(fscanf(inFile,"%s", words[P1Counter])>0) {
