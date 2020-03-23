@@ -61,19 +61,18 @@ int main (int argc, char *argv[]) {
 		wordProbability[i] = (double)wordFrequency[i] / (double)totalWords;
 	}
 
-	// bubble sort array alphabetically
-	for (int i = 0; i < P1Counter; ++i) {
-		for (int j = i+1; j < count; ++j) {
-			if (strcmp(words[i], words[j]) > 0) {
-				strcpy(temp, words[i]); 
-	            strcpy(words[i], words[j]);
-	            strcpy(words[j], temp);
+	// insertion sort array alphabetically
+	for (int i = 1 ; i < P1Counter; i++) {
+	    while (i > 0 && strcmp(words[i-1], words[i]) > 0) {
+	    	strcpy(temp, words[i]); 
+            strcpy(words[i], words[i-1]);
+            strcpy(words[i-1], temp);
 
-	            double tempProb = wordProbability[i];
-	            wordProbability[i] = wordProbability[j];
-	            wordProbability[j] = tempProb;
-			}
-		}
+            double tempProb = wordProbability[i];
+            wordProbability[i] = wordProbability[i-1];
+            wordProbability[i-1] = tempProb;
+	    	i--;
+	    }
 	}
 
      // dynamic programming tree
