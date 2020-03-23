@@ -9,7 +9,7 @@ Program Description
 
 Additional Program  Details
 ****************************************************
-To compile simulation simply type "make all"
+To compile simulation simply type "make"
 Executable 'cis3490a4’ will be created
 
 The user MUST specify file name in the command line with the program (ex. ./cis3490a4 data_7.txt), the file runs with the both algorithms
