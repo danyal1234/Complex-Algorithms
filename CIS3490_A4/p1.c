@@ -10,7 +10,11 @@
 #include <stdlib.h>
 #include "functions.h"
 
+// root table and main table calulated using algorithm on pg. 302
+
+// create tree using root table recursively
 TreeNode* createTree (double mainTable[][600], int rootTable[][600], char words[][52], int leftindex, int rightindex) {
+	// return null if no node at roottable
 	if (rootTable[leftindex][rightindex] == 0) {
 		return NULL;
 	}
@@ -20,6 +24,7 @@ TreeNode* createTree (double mainTable[][600], int rootTable[][600], char words[
 	toReturn->averageComparisons = mainTable[leftindex][rightindex];
 
 	toReturn->left = createTree(mainTable, rootTable, words, leftindex, rootTable[leftindex][rightindex]-1);
+	// if no sub tree return node
 	if (toReturn->left == NULL) {
 		return toReturn;
 	}
@@ -37,6 +42,7 @@ void OptimalBSTSearch (char words[][52], double probabilities[], int totalUnique
 	bool minvalset = false;
 	double sum = 0;
 
+	// add initial values for each key
 	for (int i = 1; i <= totalUniqueWords; ++i) {
 		mainTable[i][i] = probabilities[i];
 		rootTable[i][i] = i;
@@ -44,6 +50,7 @@ void OptimalBSTSearch (char words[][52], double probabilities[], int totalUnique
 
 	mainTable[totalUniqueWords+1][totalUniqueWords] = 0;
 
+	// go through all main table entities and use minimum formula to calc main and roor table
 	for (int d = 1; d <= totalUniqueWords-1; ++d) {
 		for (int i = 1; i <= totalUniqueWords-d; ++i) {
 			j = i + d;
@@ -65,20 +72,25 @@ void OptimalBSTSearch (char words[][52], double probabilities[], int totalUnique
 		}
 	}
 
+	// find root of tree based on calculated tables
 	TreeNode root;
 	strcpy(root.key, words[rootTable[1][totalUniqueWords]]);
 	root.averageComparisons = mainTable[1][totalUniqueWords];
 
+	// recursively find left subtree and right subtree
 	root.left = createTree(mainTable, rootTable, words, 1, rootTable[1][totalUniqueWords]-1);
 	root.right = createTree(mainTable, rootTable, words, rootTable[1][totalUniqueWords]+1, totalUniqueWords);
 
 	TreeNode* nodeIter = &root;
 
+	// traverse through tree and find word
 	while(1) {
+		// found key
 		if (strcmp(nodeIter->key, userInput) == 0) {
 			printf("Compared with %s (%0.2f), found.\n", nodeIter->key, nodeIter->averageComparisons);
 			return;
 		} else if (strcmp(userInput, nodeIter->key) > 0) {
+			// userinput greater go to right subtree
 			printf("Compared with %s (%0.2f), go right subtree.\n", nodeIter->key, nodeIter->averageComparisons);
 			nodeIter = nodeIter->right;
 			if (nodeIter == NULL) {
@@ -86,6 +98,7 @@ void OptimalBSTSearch (char words[][52], double probabilities[], int totalUnique
 				return;
 			}
 		} else {
+			// userinput less go to left subtree
 			printf("Compared with %s (%0.2f), go left subtree.\n", nodeIter->key, nodeIter->averageComparisons);
 			nodeIter = nodeIter->left;
 			if (nodeIter == NULL) {

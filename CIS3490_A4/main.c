@@ -36,7 +36,7 @@ int main (int argc, char *argv[]) {
 
 	FILE* inFile = fopen(argv[1], "r");
 
-	// parse integers
+	// parse words from file
 	while(fscanf(inFile,"%s", words[P1Counter])>0) {
 		totalWords++;
 		for (int i = 0; i < P1Counter; ++i) {
@@ -56,30 +56,34 @@ int main (int argc, char *argv[]) {
 	    P1Counter++;
 	}
 
+	// calculate frequency of words
 	for (int i = 1; i < P1Counter; ++i) {
 		wordProbability[i] = (double)wordFrequency[i] / (double)totalWords;
 	}
 
 	// bubble sort array alphabetically
-	for (int i = 0; i < P1Counter; i++) {
-      for (int j = i+1; j < P1Counter; j++)
-         if (strcmp(words[i], words[j]) > 0) {
-            strcpy(temp, words[i]); 
-            strcpy(words[i], words[j]);
-            strcpy(words[j], temp);
+	for (int i = 0; i < P1Counter; ++i) {
+		for (int j = i+1; j < count; ++j) {
+			if (strcmp(words[i], words[j]) > 0) {
+				strcpy(temp, words[i]); 
+	            strcpy(words[i], words[j]);
+	            strcpy(words[j], temp);
 
-            double tempProb = wordProbability[i];
-            wordProbability[i] = wordProbability[j];
-            wordProbability[j] = tempProb;
-         }
-     }
+	            double tempProb = wordProbability[i];
+	            wordProbability[i] = wordProbability[j];
+	            wordProbability[j] = tempProb;
+			}
+		}
+	}
 
+     // dynamic programming tree
 	if (menuChoice == 1) {
 		printf("Enter a key: ");
 		scanf("%s", option1Input);
 		OptimalBSTSearch(words, wordProbability, P1Counter-1, option1Input);
 	}
 
+	// greedy algo tree
 	if (menuChoice == 2) {
 		printf("Enter a key: ");
 		scanf("%s", option1Input);

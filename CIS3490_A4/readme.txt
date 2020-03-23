@@ -12,6 +12,6 @@ Additional Program  Details
 To compile simulation simply type "make all"
 Executable 'cis3490a4’ will be created
 
-The user MUST specify two file names in the command line with the program, the first file runs with the anagrams algorithm and the second file runs the string search algorithms
+The user MUST specify file name in the command line with the program (ex. ./cis3490a4 data_7.txt), the file runs with the both algorithms
 
-The user can select which program to run based on the options menu
+The user can select which algorithm to run based on the options menu

@@ -1,5 +1,12 @@
+// ****************************************************
+// Danyal Mahmood                          0956989
+// CIS 3490                                Assignment 4
+// dmahmood@uoguelph.ca                    Mar 30, 2020
+// ****************************************************
+
 #include <stdio.h>
 
+// used to create tree nodes for both problems
 typedef struct treeNode TreeNode;
 struct treeNode{
 	char key[52];
