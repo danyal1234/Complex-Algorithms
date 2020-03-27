@@ -63,8 +63,8 @@ void OptimalBSTSearch (char words[][52], double probabilities[], int totalUnique
 				}
 			}
 			rootTable[i][j] = kmin;
-			sum = 0;
-			for (int s = i; s <= j; ++s) {
+			sum = probabilities[i];
+			for (int s = i+1; s <= j; ++s) {
 				sum += probabilities[s];
 			}
 
